@@ -88,3 +88,34 @@ window.addEventListener('scroll', () => {
     link.classList.toggle('active', current && link.getAttribute('href') === `#${current.id}`);
   });
 });
+
+// Lightbox para la galería de evidencias reales
+const galleryCards = document.querySelectorAll('.gallery-card');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('.lightbox-img');
+const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+galleryCards.forEach((card) => {
+  const img = card.querySelector('img');
+  card.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = img.alt;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+  });
+});
+
+lightboxClose.addEventListener('click', () => {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+});
+
+lightbox.addEventListener('click', (event) => {
+  if (event.target === lightbox) {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+  }
+});
+
